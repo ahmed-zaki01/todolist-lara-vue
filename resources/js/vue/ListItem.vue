@@ -5,6 +5,10 @@
       {{ item.name }}
     </span>
 
+    <span :class="[item.completed ? 'completedAt' : '', 'itemText']">
+      {{ item.completed_at }}
+    </span>
+
     <button @click="removeItem()" class="trashcan">
       <font-awesome-icon icon="trash" />
     </button>
@@ -20,6 +24,7 @@ export default {
         .put(`api/item/${this.item.id}`, { item: this.item })
         .then((response) => {
           if (response.status == 200) {
+            //   if(this.item.complated_at)
             this.$emit("itemchanged");
           }
         })
@@ -55,6 +60,11 @@ export default {
 .completed {
   text-decoration: line-through;
   color: #999999;
+}
+
+.completedAt {
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .itemText {
